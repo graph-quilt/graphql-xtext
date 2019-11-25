@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.intuit.graphql.ui
+Bundle-ManifestVersion: 2
+Bundle-Name: com.intuit.graphql.ui
+Bundle-Vendor: Intuit
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.intuit.graphql.ui; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.intuit.graphql,
+ com.intuit.graphql.ide,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.19.0",
+ org.eclipse.xtend.lib;bundle-version="2.19.0";resolution:=optional
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.intuit.graphql.ui.quickfix,
+ com.intuit.graphql.ui.internal,
+ com.intuit.graphql.ui.contentassist
+Bundle-Activator: com.intuit.graphql.ui.internal.GraphqlActivator
