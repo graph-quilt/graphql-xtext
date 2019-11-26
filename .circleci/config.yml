@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/graphql-xtext
+
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+
+    steps:
+
+      - checkout # check out source code to working directory
+
+      - run: mvn install
+
+      # we're not ready to store artifacts just yet.
+#      - store_test_results:
+#          path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
+#
+#      - store_artifacts:
+#          path: com.intuit.graphql.parent/com.intuit.graphql/target/com.intuit.graphql-1.0.0-SNAPSHOT.jar
+#      - store_artifacts:
+#          path: com.intuit.graphql.parent/com.intuit.graphql.ide/target/com.intuit.graphql.ide-1.0.0-SNAPSHOT.jar
+#      - store_artifacts:
+#          path: com.intuit.graphql.parent/com.intuit.graphql.ide/target/com.intuit.graphql.ide-1.0.0-SNAPSHOT-ls.jar
+#      - store_artifacts:
+#          path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/com.intuit.graphql.tests-1.0.0-SNAPSHOT.jar
+#      - store_artifacts:
+#          path: com.intuit.graphql.parent/com.intuit.graphql.ui/target/com.intuit.graphql.ui-1.0.0-SNAPSHOT.jar
+#dependencies:
+#  override:
+#    - mvn install -DskipTests
