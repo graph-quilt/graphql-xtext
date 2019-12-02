@@ -1,7 +1,23 @@
 version: 2
 jobs:
-  build:
+  pr_build:
+    filters:
+      branches:
+        only: /^(?!pull\/).*$/
 
+    working_directory: ~/graphql-xtext
+    docker:
+      -image: circleci/openjdk:8-jdk-stretch
+
+    steps:
+      - checkout
+      - run: mvn test
+      - store_test_results:
+          path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
+  master_build:
+    filters:
+      branches:
+        only: master
     working_directory: ~/graphql-xtext
 
     docker:
@@ -9,8 +25,7 @@ jobs:
 
     steps:
 
-      - checkout # check out source code to working directory
-
+      - checkout
       - run: mvn install
 
       # we're not ready to store artifacts just yet.
