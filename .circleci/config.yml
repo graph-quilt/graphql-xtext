@@ -43,11 +43,11 @@ workflows:
   version: 2
   builds:
     jobs:
-      pr_build:
-        filters:
-          branches:
-            only: /^(?!pull\/).*$/
-      master_build:
-        filters:
-          branches:
-            only: master
+      - pr_build:
+          filters:
+            branches:
+              only: /^(?!pull\/).*$/
+      - master_build:
+          filters:
+            branches:
+              only: master
