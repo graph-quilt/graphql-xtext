@@ -17,7 +17,6 @@ jobs:
       - image: circleci/openjdk:8-jdk-stretch
 
     steps:
-
       - checkout
       - run: mvn install
 
@@ -41,7 +40,7 @@ jobs:
 
 workflows:
   version: 2
-  builds:
+  branch_builds:
     jobs:
       - pr_build:
           filters:
