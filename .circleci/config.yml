@@ -3,7 +3,7 @@ jobs:
   pr_build:
     working_directory: ~/graphql-xtext
     docker:
-      -image: circleci/openjdk:8-jdk-stretch
+      - image: circleci/openjdk:8-jdk-stretch
 
     steps:
       - checkout
