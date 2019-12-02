@@ -35,15 +35,7 @@
   <repositories>
     <repository>
       <id>codehaus-snapshots</id>
-      <name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478
-      </name>
       <url>http://nexus.codehaus.org/snapshots/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
     </repository>
     <repository>
       <id>Xtext Update Site</id>
@@ -51,17 +43,4 @@
       <url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtextVersion}/</url>
     </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>cg-central</id>
-      <name>CG Central Repo</name>
-      <url>http://nexus.intuit.net/nexus/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 </project>
