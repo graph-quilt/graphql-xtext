@@ -45,6 +45,15 @@ jobs:
           name: Maven Deploy
           command: mvn deploy
 
+  release:
+    working_directory: ~/graphql-xtext
+    docker:
+      -image: circleci/openjdk:8-jdk-stretch
+    steps:
+      -run:
+        name: Maven Release
+        command: mvn -B release:clean release:prepare release:perform
+
 workflows:
   version: 2
   ci_builds:
@@ -56,4 +65,10 @@ workflows:
           filters:
             branches:
               only: master
+  release_build:
+    jobs:
+      - release:
+          filters:
+             branches:
+               only: release
 
