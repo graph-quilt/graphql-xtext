@@ -42,11 +42,15 @@ jobs:
   # DEPLOY STEP
   #####
   deploy:
-    - attach_workspace:
-        at: /tmp/workspace
-    - run:
-        name: Maven Deploy
-        command: mvn deploy
+    working_directory: ~/graphql-xtext
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Maven Deploy
+          command: mvn deploy
 
 workflows:
   version: 2
