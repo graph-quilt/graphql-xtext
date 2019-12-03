@@ -6,6 +6,7 @@ jobs:
       - image: circleci/openjdk:8-jdk-stretch
 
     steps:
+      - checkout
       - restore_cache:
           # ignoring target, tests, ui project POMs (very few changes, if any)
           key: v1-deps-{{ checksum "pom.xml" }}-{{checksum com.intuit.graphql.parent/pom.xml}}-{{checksum com.intuit.graphql.parent/com.intuit.graphql/pom.xml}}-{{ checksum com.intuit.graphql.parent/com.intuit.graphql.ide/pom.xml }}
