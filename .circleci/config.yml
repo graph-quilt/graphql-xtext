@@ -36,7 +36,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - *
+            - '**/*'
 
   #####
   # DEPLOY STEP
