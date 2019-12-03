@@ -9,7 +9,7 @@ jobs:
       - checkout
       - restore_cache:
           # ignoring target, tests, ui project POMs (very few changes, if any)
-          key: v1-deps-{{ checksum "pom.xml" }}-{{checksum com.intuit.graphql.parent/pom.xml}}-{{checksum com.intuit.graphql.parent/com.intuit.graphql/pom.xml}}-{{ checksum com.intuit.graphql.parent/com.intuit.graphql.ide/pom.xml }}
+          key: v1-deps-{{ checksum "pom.xml" }}-{{checksum "com.intuit.graphql.parent/pom.xml" }}-{{checksum "com.intuit.graphql.parent/com.intuit.graphql/pom.xml" }}-{{ checksum "com.intuit.graphql.parent/com.intuit.graphql.ide/pom.xml" }}
 
       - run:
           name: Maven Build
@@ -17,7 +17,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-deps-{{ checksum "pom.xml" }}-{{checksum com.intuit.graphql.parent/pom.xml}}-{{checksum com.intuit.graphql.parent/com.intuit.graphql/pom.xml}}-{{ checksum com.intuit.graphql.parent/com.intuit.graphql.ide/pom.xml }}
+          key: v1-deps-{{ checksum "pom.xml" }}-{{checksum "com.intuit.graphql.parent/pom.xml" }}-{{checksum "com.intuit.graphql.parent/com.intuit.graphql/pom.xml" }}-{{ checksum "com.intuit.graphql.parent/com.intuit.graphql.ide/pom.xml" }}
 
       - store_test_results:
           path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
