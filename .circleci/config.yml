@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  branch_builds:
+  branch_build:
     working_directory: ~/graphql-xtext
     docker:
       - image: circleci/openjdk:8-jdk-stretch
@@ -37,13 +37,10 @@ jobs:
 
 workflows:
   version: 2
-  branch_builds:
+  ci_builds:
     jobs:
       - master_build:
           filters:
             branches:
               only: master
-      - branch_builds:
-          filters:
-            branches:
-              only: ^(?!master)$
+      - branch_build
