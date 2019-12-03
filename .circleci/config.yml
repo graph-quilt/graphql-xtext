@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: test
-          command: mvn test
+          command: mvn install
       - store_test_results:
           path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
   master_build:
