@@ -22,45 +22,9 @@ jobs:
       - store_test_results:
           path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
 
-  #####
-  # DEPLOY STEP
-  #####
-  deploy:
-    working_directory: ~/graphql-xtext
-    docker:
-      - image: circleci/openjdk:8-jdk-stretch
-    steps:
-      - run:
-          name: Maven Deploy
-          command: mvn deploy
-
-  #####
-  # RELEASE STEP
-  #####
-  release:
-    working_directory: ~/graphql-xtext
-    docker:
-      - image: circleci/openjdk:8-jdk-stretch
-    steps:
-      - run:
-          name: Maven Release
-          command: mvn -B release:clean release:prepare release:perform
-
 workflows:
   version: 2
   ci_builds:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-  release_build:
-    jobs:
-      - release:
-          filters:
-             branches:
-               only: release
 
