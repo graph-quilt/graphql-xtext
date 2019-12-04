@@ -50,9 +50,9 @@ jobs:
     docker:
       -image: circleci/openjdk:8-jdk-stretch
     steps:
-      -run:
-        name: Maven Release
-        command: mvn -B release:clean release:prepare release:perform
+      - run:
+          name: Maven Release
+          command: mvn -B release:clean release:prepare release:perform
 
 workflows:
   version: 2
