@@ -8,7 +8,8 @@
   <packaging>pom</packaging>
 
   <scm>
-    <url>https://github.com/intuit/graphql-xtext.git</url>
+    <connection>scm:git:https://github.com/intuit/graphql-xtext</connection>
+    <url>https://github.com/intuit/graphql-xtext</url>
     <tag>HEAD</tag>
   </scm>
 
