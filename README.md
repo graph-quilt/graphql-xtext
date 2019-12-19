@@ -7,6 +7,8 @@
 
 A GraphQL SDL lexer, parser, and validator that generates a traversable Abstract Syntax Tree from your GraphQL schema. GraphQL-Xtext will generate pure Java Objects that can be used at runtime.
 
+The EMF objects can be used to implement Apollo Federation Spec and build a purely java based service that is truly open source.
+
 ## Installing the Software 
 
 This project uses `java 8` and `maven 3.3+`. 
