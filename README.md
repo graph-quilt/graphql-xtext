@@ -1,3 +1,6 @@
+
+### This is a WIP project that does not have an official release!
+
 # GraphQL-Xtext
 
 [![CircleCI](https://circleci.com/gh/intuit/graphql-xtext/tree/master.svg?style=svg&circle-token=e643c37c269d36978ff4455c6fe86b32e145ed68)](https://circleci.com/gh/intuit/graphql-xtext/tree/master)
@@ -39,12 +42,10 @@ mvn clean install
 
 ## Language Server Support
 
-Graphql-xtext builds a Language Server executable under `com.intuit.graphql.parent/com.intuit.graphql.ide/target/`, named
-`com.intuit.graphql.ide-x.y.z-ls.jar`. This can be used to build generic Application and cloud-based IDEs for the grammar.
+Graphql-Xtext builds a Language Server executable under `com.intuit.graphql.parent/com.intuit.graphql.ide/target/`, named
+`com.intuit.graphql.ide-x.y.z-ls.jar`. This can be used to build generic application and cloud-based IDEs for the grammar.
 
 [`theia-xtext`](https://github.com/theia-ide/theia-xtext) is an example of a cloud-based IDE that uses the xtext language server jar.
-
-
 
 ## License
 
