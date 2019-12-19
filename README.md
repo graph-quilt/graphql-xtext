@@ -1,5 +1,5 @@
 
-### This is a WIP Project that does not have an official release!
+### This is a WIP project that does not have an official release!
 
 # GraphQL-Xtext
 
