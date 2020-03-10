@@ -1,6 +1,3 @@
-
-### This is a WIP project that does not have an official release!
-
 # GraphQL-Xtext
 
 [![CircleCI](https://circleci.com/gh/intuit/graphql-xtext/tree/master.svg?style=svg&circle-token=e643c37c269d36978ff4455c6fe86b32e145ed68)](https://circleci.com/gh/intuit/graphql-xtext/tree/master)
