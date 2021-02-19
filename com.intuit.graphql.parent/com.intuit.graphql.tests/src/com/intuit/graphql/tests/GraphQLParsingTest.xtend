@@ -8,34 +8,155 @@ import com.intuit.graphql.graphQL.Document
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 
 @ExtendWith(InjectionExtension)
 @InjectWith(GraphQLInjectorProvider)
 class GraphQLParsingTest {
-	@Inject
-	ParseHelper<Document> parseHelper
-	
+	@Inject extension ParseHelper<Document>
+	@Inject extension ValidationTestHelper
+
 	@Test
-	def void loadModel() {
-		val result = parseHelper.parse('''
-			schema {
-			  query: QueryType
+	def void simpleQuery() {
+		'''
+			query {
+			  consumer {
+			  	 id
+			  	 foo
+			  	 bar {
+			  	 	x
+			  	 	y
+			  	 	z
+			  	 }
+			  	}
 			}
-			type QueryType {
-			  consumer: String
-			  foo: Long!
-			}
-			scalar Long
-		''')
-		verify(result)
+		'''.parse.assertNoErrors
 	}
-	
-	def void verify(Document d) {
-		Assertions.assertNotNull(d)
-		val errors = d.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+
+	@Test
+	def void queryWithArgument() {
+		'''
+			query myQuery{
+			  consumer(id: "123", object: {x:1, y:2}) {
+			  	 
+			  	 foo
+			  	 bar {
+			  	 	x
+			  	 }
+			  	}
+			}
+		'''.parse.assertNoErrors
+
+	}
+
+	@Test
+	def void queryWithVariables() {
+		'''
+			query myQuery($id: String, $object: FooType){
+				  consumer(id: $id, object: $object) {
+				  	 
+				  	 foo
+				  	 bar {
+				  	 	x
+				  	 }
+				  	}
+				}
+		'''.parse.assertNoErrors
+
+	}
+
+	@Test
+	def void queryWithInterfaces() {
+		'''
+			query myQuery($id: String, $object: FooType){
+				  consumer(id: $id, object: $object) {
+				  	 foo
+				  	 ... on InterfaceType {
+				  	 	bar {
+				  	 		x
+				  	 	}
+				  	 }
+				  	}
+				}
+		'''.parse.assertNoErrors
+
+	}
+
+	@Test
+	def void queryWithFragments() {
+		'''
+			{
+			  consumer {
+			  	__typename
+			  	 finance {
+			  	   taxes {
+			  	     Ty18: document(taxYear: "2018", resourceOwnerId: "9059977895144281") {
+			  	       ...document
+			  	     }
+			  	     Ty19: document(taxYear: "2019", resourceOwnerId: "9059977895144281") {
+			  	       ...document
+			  	     }
+			  	   }
+			  	 }
+			  }
+			}
+			
+			fragment document on COS_TaxType {
+			  returns {
+			    eFile {
+			      status
+			    }
+			    returnHeader {
+			      taxYr
+			    }
+			    returnData {
+			      stateReturnInfo {
+			        eFile { status } taxAuthority filingDate rejectedDate transmittedDate acceptedDate
+			        refundInfo { refundAmt balanceDueAmt }
+			      }
+			      irs1040 {
+			        refundInfo {
+			          filingDate
+			          rejectedDate
+			          transmittedDate
+			          acceptedDate
+			        }
+			      }
+			    }
+			  }
+			}
+		'''.parse.assertNoErrors
+
+	}
+
+	@Test
+	def void mutation() {
+		'''
+			mutation {
+			  adviceInteraction(input: {contentId: "-100", action: seen}) {
+			    _meta {
+			      statusCode
+			    }
+			  }
+			}
+			
+		'''.parse.assertNoErrors
+
+	}
+
+	@Test
+	def void queryWithDirectives() {
+		'''
+			mutation updateMerchantSentiments($merchants: [Merchant_Input!]!) {
+			  updateMerchantSentiments(merchants: $merchants) @merge {
+			    merchantId
+			    merchantInteractionTime
+			    rating
+			    committedAmount
+			  }
+			}
+		'''.parse.assertNoErrors
 	}
 }
