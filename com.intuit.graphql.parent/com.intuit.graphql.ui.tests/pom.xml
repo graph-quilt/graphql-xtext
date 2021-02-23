@@ -9,7 +9,7 @@
 	<artifactId>com.intuit.graphql.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
@@ -23,6 +23,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 
 </project>

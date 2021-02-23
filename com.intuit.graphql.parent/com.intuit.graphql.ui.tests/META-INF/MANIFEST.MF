@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: com.intuit.graphql.ui.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: com.intuit.graphql.ui.tests
-Bundle-Vendor: My Company
+Bundle-Vendor: Intuit
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: com.intuit.graphql.ui.tests; singleton:=true
 Bundle-ActivationPolicy: lazy

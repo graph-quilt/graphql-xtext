@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: com.intuit.graphql
 Bundle-ManifestVersion: 2
 Bundle-Name: com.intuit.graphql
-Bundle-Vendor: My Company
+Bundle-Vendor: Intuit
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: com.intuit.graphql; singleton:=true
 Bundle-ActivationPolicy: lazy
