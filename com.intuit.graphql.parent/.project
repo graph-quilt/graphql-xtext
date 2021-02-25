@@ -3,12 +3,6 @@
 	<name>com.intuit.graphql.parent</name>
 	<comment></comment>
 	<projects>
-		<project>com.intuit.graphql</project>
-		<project>com.intuit.graphql.ide</project>
-		<project>com.intuit.graphql.target</project>
-		<project>com.intuit.graphql.tests</project>
-		<project>com.intuit.graphql.ui</project>
-		<project>com.intuit.graphql.ui.tests</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -14,16 +14,15 @@ QueryDefinition:
 
 OperationDefinition:
 	SelectionSet |
-	OperationType  name=Name? variableDefinitions=VariableDefinitions? directives+=Directive* selectionSet=SelectionSet;
+	operationType=OperationType  name=Name? variableDefinitions=VariableDefinitions? directives+=QDirective* selectionSet=SelectionSet;
 
-OperationType : 'mutation' | 'query' | 'subscription';
+enum OperationType: QUERY='query' | MUTATION='mutation' | SUBSCRIPTION='subscription';
 
 VariableDefinitions : '(' variableDefinition+=VariableDefinition+ ')';
 
-VariableDefinition : desc=StringValue? variable=Variable ':' namedType=NamedType ('=' defaultValue=Value)? (',')?;
+VariableDefinition : desc=StringValue? variable=Variable ':' type=QType ('=' defaultValue=Value)? (',')?;
 
 Variable : '$' name=Name;
-
 //
 // Operations
 //
@@ -32,35 +31,38 @@ SelectionSet :  '{' selection+=Selection+ '}';
 
 Selection : FField | FragmentSpread | InlineFragment;
 
-FField : alias? name=Name arguments=Arguments? directives+=Directive* selectionSet=SelectionSet?;
+FField : alias? name=Name Arguments?  directives+=QDirective* selectionSet=SelectionSet?;
 
 alias : id=ID ':';
 
-Arguments : '(' argument+=Argument+ ')';
-
-Argument : name=Name ':' valueWithVariable=ValueWithVariable;
+//
+// Arguments
+//
+fragment Arguments: '(' arguments+=Argument+ ')';
+Argument: name=Name ':' valueWithVariable=ValueWithVariable (',')?;
 
 
 //
 // Fragments
 //
 
-FragmentSpread : '...' fragmentName=FragmentName directives+=Directive*;
+FragmentSpread : '...' fragmentDefinition=[FragmentDefinition|Name] directives+=QDirective*;
 
-InlineFragment : '...' typeCondition=TypeCondition? directives+=Directive* selectionSet=SelectionSet;
+InlineFragment : '...' typeCondition=TypeCondition? directives+=QDirective* selectionSet=SelectionSet;
 
-FragmentDefinition : 'fragment' fragmentName=FragmentName typeCondition=TypeCondition directives+=Directive* selectionSet=SelectionSet;
+FragmentDefinition : 'fragment' name=Name typeCondition=TypeCondition directives+=QDirective* selectionSet=SelectionSet;
 
-FragmentName :  name=Name;
-
-TypeCondition : 'on' namedType=NamedType;
+//TypeCondition : 'on' namedType=NamedType;
+TypeCondition : 'on' namedType=Name;
 
 
 //
 // Value
 //
 
-Name: ID | 'type' | 'fragment' | 'query' | 'mutation' | 'schema' | 'scalar' | 'interface' | 'implements' | 'enum' | 'union' | 'input' | 'extend' | 'directive' | 'Long' | 'BigInteger' | 'BigDecimal' | 'Short' | 'Char' | 'Byte' | 'ID'; 
+Name: ID | 'type' | 'fragment' | 'query' | 'mutation' | 'subscription' | 'schema' | 'scalar' | 'interface' | 'implements' | 'enum' | 'union' | 'input' | 'extend' | 'directive' 
+	| 'Long' | 'BigInteger' | 'BigDecimal' | 'Short' | 'Char' | 'Byte' | 'ID' | 'String' | 'Int' | 'Float' | 'Boolean'
+; 
 	
 Value:
 	nullValue=NullValue |
@@ -78,8 +80,8 @@ ValueWithVariable:
 	floatValue=FloatValue |
 	boolValue=BooleanValue |
 	stringValue=StringValue |
-	enumValue=EnumValue |
-	variable=Variable |
+	enumValue=EnumValue |		
+	variable=Variable | 
 	objectValueWithVariable=ObjectValueWithVariable |
 	arrayValueWithVariable=ArrayValueWithVariable;
 
@@ -110,21 +112,28 @@ ObjectFieldWithVariable : desc=StringValue? name=Name ':' valueWithVariable=Valu
 
 
 //
-// Directives
-//
-
-Directive :'@' definition=[DirectiveDefinition] arguments=Arguments?;
-
-
-//
 // Types
 //
-NamedType: PrimitiveType | NonNullType;
 
-PrimitiveType: type=('String' | 'Int' | 'Float' | 'Boolean' | 'ID' | 'Long' | 'BigInteger' | 'BigDecimal' | 'Short' | 'Char' | 'Byte') (not='!')?;
-NonNullType:  objectType=[TypeDefinition] (not='!')? | listType=ListType (not='!')?;
 
-ListType : '[' type=NamedType ']';
+QType: (QNameType | QListType) (nonNull?='!')?;
+QNameType: type=Name;
+QListType: '[' type=QType ']';
+
+
+NamedType:
+	(PrimitiveType | ObjectType | ListType) (nonNull?='!')?
+;
+
+PrimitiveType: 
+	type=('String' | 'Int' | 'Float' | 'Boolean' | 'ID' | 'Long' | 'BigInteger' | 'BigDecimal' | 'Short' | 'Char' | 'Byte')
+;
+
+ObjectType: 
+	type=[TypeDefinition]
+;
+
+ListType: '[' type=NamedType ']';
 
 
 
@@ -164,7 +173,7 @@ TypeExtensionDefinition :
 //Scalar
 ScalarTypeDefinition : desc=StringValue? 'scalar' name=Name directives+=Directive*;
 
-ScalarTypeExtensionDefinition : 'extend' 'scalar' name=Name directives+=Directive* ;
+ScalarTypeExtensionDefinition : 'extend' 'scalar' name=Name directives+=Directive*;
 
 //Object
 ObjectTypeDefinition : desc=StringValue? 'type' name=Name implementsInterfaces=ImplementsInterfaces? directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
@@ -194,7 +203,6 @@ EnumTypeExtensionDefinition: 'extend' 'enum' name=Name directives+=Directive* ('
 //Input
 InputObjectTypeDefinition : desc=StringValue? 'input' name=Name directives+=Directive*  ('{' inputValueDefinition+=InputValueDefinition* '}')?;
 
-
 InputObjectTypeExtensionDefinition: 'extend' 'input' name=Name directives+=Directive* ('{' inputValueDefinition+=InputValueDefinition* '}')?;
 
 
@@ -207,6 +215,12 @@ ArgumentsDefinition : '(' inputValueDefinition+=InputValueDefinition+ ')';
 InputValueDefinition : desc=StringValue? name=Name ':' namedType=NamedType ('=' defaultValue=Value)? directives+=Directive* (',')?;
 
 
+
+//
+// Directives
+//
+QDirective:'@' name=Name Arguments?;
+Directive:'@' definition=[DirectiveDefinition] Arguments?;
 
 DirectiveDefinition : desc=StringValue? 'directive' '@' name=Name argumentsDefinition=ArgumentsDefinition? 'on' directiveLocations+=DirectiveLocation ('|' directiveLocations+=DirectiveLocation)*;
 
@@ -227,7 +241,7 @@ IntegerPart : INT;
 terminal SIGN : '-';
 terminal EXPONENT_PART : ('e'|'E')SIGN?INT;
 terminal COMMENT : '#'  !('\n'|'\r')* ('\r'? '\n')?;
-terminal ID: '^'?('$'|'a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+terminal ID: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 terminal INT returns ecore::EInt: ('0'..'9')+;
 
 terminal STRING:
