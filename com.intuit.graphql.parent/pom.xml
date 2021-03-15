@@ -30,8 +30,8 @@
 		<module>com.intuit.graphql.ui</module>
 		<module>com.intuit.graphql.web</module>
 		<module>com.intuit.graphql.target</module>
-		<module>com.intuit.graphql.feature</module>
-		<module>com.intuit.graphql.repository</module>
+<!-- 		<module>com.intuit.graphql.feature</module>
+ -->		<module>com.intuit.graphql.repository</module>
 		<module>com.intuit.graphql.tests</module>
 		<module>com.intuit.graphql.ui.tests</module>
 	</modules>
