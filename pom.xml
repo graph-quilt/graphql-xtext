@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.intuit.graphql</groupId>
   <artifactId>graphql-xtext</artifactId>
   <version>1.0.5-SNAPSHOT</version>
   <packaging>pom</packaging>
-
+  
+  <name>${project.artifactId}</name>
+  <description>A GraphQL SDL lexer, parser, and validator that generates a traversable Abstract Syntax Tree from your GraphQL schema</description>
+  <url>https://github.com/intuit/graphql-xtext</url>
+  
   <scm>
     <connection>scm:git:https://github.com/intuit/graphql-xtext</connection>
     <url>https://github.com/intuit/graphql-xtext</url>
