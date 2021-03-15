@@ -49,6 +49,14 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
+		    <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <strictVersions>false</strictVersions>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -244,8 +252,8 @@
 											<goal>build-qualifier</goal>
 											<goal>build-qualifier-aggregator</goal>
 											<goal>validate-id</goal>
-<!-- 											<goal>validate-version</goal>
- -->										</goals>
+ 											<goal>validate-version</goal>
+										</goals>
 									</pluginExecutionFilter>
 									<action>
 										<ignore></ignore>
