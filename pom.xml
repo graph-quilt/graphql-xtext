@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.intuit.graphql</groupId>
   <artifactId>graphql-xtext</artifactId>
-  <version>1.0.8-SNAPSHOT</version>
+  <version>1.0.8</version>
   <packaging>pom</packaging>
   
   <name>${project.artifactId}</name>
@@ -14,7 +14,7 @@
   <scm>
     <connection>scm:git:https://github.com/intuit/graphql-xtext</connection>
     <url>https://github.com/intuit/graphql-xtext</url>
-    <tag>HEAD</tag>
+    <tag>graphql-xtext-1.0.8</tag>
   </scm>
 
   <licenses>
