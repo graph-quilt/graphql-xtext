@@ -28,6 +28,17 @@
     </developer>
   </developers>
 
+  <repositories>
+    <repository>
+      <id>codehaus-snapshots</id>
+      <url>http://nexus.codehaus.org/snapshots/</url>
+    </repository>
+    <repository>
+      <id>Xtext Update Site</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtextVersion}/</url>
+    </repository>
+  </repositories>
   <properties>
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
