@@ -46,6 +46,7 @@
   </repositories>
   
   <properties>
+    <xtextVersion>2.25.0</xtextVersion>
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
