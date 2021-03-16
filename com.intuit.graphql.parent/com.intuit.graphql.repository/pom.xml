@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.intuit.graphql</groupId>
 		<artifactId>com.intuit.graphql.parent</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.13-SNAPSHOT</version>
 	</parent>
 	<artifactId>com.intuit.graphql.repository</artifactId>
 	<packaging>eclipse-repository</packaging>

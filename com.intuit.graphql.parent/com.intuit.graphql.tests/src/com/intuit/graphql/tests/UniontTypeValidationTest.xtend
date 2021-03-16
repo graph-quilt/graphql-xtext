@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 
-//@RunWith(XtextRunner)
 @InjectWith(GraphQLInjectorProvider)
 @ExtendWith(InjectionExtension)
 class UniontTypeValidationTest {
@@ -41,8 +40,8 @@ class UniontTypeValidationTest {
 		'''
 
 		val result = parseHelper.parse(document)
-//		validationTestHelper.assertError(result, GraphQLPackage.Literals.UNION_TYPE_DEFINITION, null,
-//			"Offending member type in union 'InterfaceFoo'")
+		validationTestHelper.assertError(result, GraphQLPackage.Literals.UNION_TYPE_DEFINITION, null,
+			"Offending member type in union 'InterfaceFoo'")
 	}
 	
 	@Test
@@ -65,7 +64,7 @@ class UniontTypeValidationTest {
 		'''
 		
 		val result = parseHelper.parse(document)
-//		validationTestHelper.assertError(result,GraphQLPackage.Literals.UNION_TYPE_DEFINITION, null,
-//			"Offending member type in union 'String'")
+		validationTestHelper.assertError(result,GraphQLPackage.Literals.UNION_TYPE_DEFINITION, null,
+			"Offending member type in union 'String'")
 	}
 }
