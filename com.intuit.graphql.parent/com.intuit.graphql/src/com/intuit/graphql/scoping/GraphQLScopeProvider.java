@@ -4,21 +4,26 @@
 package com.intuit.graphql.scoping;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.Scopes;
 
 import com.intuit.graphql.graphQL.ArgumentsDefinition;
 import com.intuit.graphql.graphQL.Directive;
 import com.intuit.graphql.graphQL.DirectiveDefinition;
 import com.intuit.graphql.graphQL.DirectiveLocation;
 import com.intuit.graphql.graphQL.GraphQLFactory;
+import com.intuit.graphql.graphQL.GraphQLPackage;
 import com.intuit.graphql.graphQL.InputValueDefinition;
 import com.intuit.graphql.graphQL.PrimitiveType;
 import com.intuit.graphql.graphQL.TypeSystem;
@@ -33,11 +38,20 @@ import com.intuit.graphql.graphQL.Value;
  * on how and when to use it.
  */
 public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
+	
+	private Map<String, Function<String, DirectiveDefinition>> BUILT_IN_DIRECTIVE_DEFINITIONS = new HashMap() {
+		{
+			put("include", createFilterableDirective);
+			put("skip", createFilterableDirective);
+			put("deprecated", createDeprecatedDirective);
 
-	private static List<DirectiveDefinition> BUILT_IN_DIRECTIVE_DEFINITIONS = Arrays.asList(createDeprecatedDirective(),
-			createFilterableDirective("include"), createFilterableDirective("skip"));
+		}
+	};
 
-	private static DirectiveDefinition createDeprecatedDirective() {
+//	private static List<DirectiveDefinition> BUILT_IN_DIRECTIVE_DEFINITIONS = Arrays.asList(createDeprecatedDirective(),
+//			createFilterableDirective("include"), createFilterableDirective("skip"));
+
+	private static Function<String, DirectiveDefinition> createDeprecatedDirective = directiveName -> {
 
 		PrimitiveType primitive = GraphQLFactory.eINSTANCE.createPrimitiveType();
 		primitive.setType("String");
@@ -60,7 +74,7 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 				Arrays.asList(createDirectiveLocation("FIELD_DEFINITION"), createDirectiveLocation("ENUM_VALUE")));
 
 		return deprecated;
-	}
+	};
 
 	private static DirectiveLocation createDirectiveLocation(String location) {
 		DirectiveLocation directiveLocation = GraphQLFactory.eINSTANCE.createDirectiveLocation();
@@ -68,7 +82,7 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 		return directiveLocation;
 	}
 
-	private static DirectiveDefinition createFilterableDirective(String directiveName) {
+	private static Function<String, DirectiveDefinition> createFilterableDirective = directiveName -> {
 
 		PrimitiveType primitive = GraphQLFactory.eINSTANCE.createPrimitiveType();
 		primitive.setType("Boolean");
@@ -88,7 +102,7 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 				createDirectiveLocation("FRAGMENT_SPREAD"), createDirectiveLocation("INLINE_FRAGMENT")));
 
 		return directive;
-	}
+	};
 
 	private TypeSystemDefinition typeSystemDefinition(DirectiveDefinition directiveDefinition) {
 		TypeSystemDefinition typeSystemDefinition = GraphQLFactory.eINSTANCE.createTypeSystemDefinition();
@@ -98,27 +112,25 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 
 	@Override
 	public IScope getScope(EObject context, EReference reference) {
-		if (context instanceof Directive) {
-			EObject rootContainer = EcoreUtil2.getRootContainer(context);
+		if (context instanceof Directive && reference == GraphQLPackage.Literals.DIRECTIVE__DEFINITION) {
+				EObject rootContainer = EcoreUtil2.getRootContainer(context);
+				if (rootContainer instanceof TypeSystem) {
+					TypeSystem typeSystem = (TypeSystem) EcoreUtil2.getRootContainer(context);
+					Map<String, DirectiveDefinition> existingDirectives = typeSystem.getTypeSystemDefinition().stream()
+							.filter(t -> Objects.nonNull(t.getDirective())).map(ts -> ts.getDirective())
+							.collect(Collectors.toMap(d -> d.getName(), Function.identity()));
+					
+					BUILT_IN_DIRECTIVE_DEFINITIONS.forEach((key,value)-> {
+						if (!existingDirectives.containsKey(key)) {
+							DirectiveDefinition def = value.apply(key);
+							existingDirectives.put(key, def);
+							context.eResource().getContents().add(def);
+							typeSystem.getTypeSystemDefinition().add(typeSystemDefinition(def));
 
-			if (rootContainer instanceof TypeSystem) {
-				TypeSystem typeSystem = (TypeSystem) EcoreUtil2.getRootContainer(context);
-				Set<String> existingDirectiveNames = typeSystem.getTypeSystemDefinition()
-						.stream()
-						.filter(t -> Objects.nonNull(t.getDirective()))
-						.map(ts -> ts.getDirective().getName())
-						.collect(Collectors.toSet());
-
-				BUILT_IN_DIRECTIVE_DEFINITIONS
-						.forEach(d -> {
-							if(!existingDirectiveNames.contains(d.getName())) {
-							   typeSystem.getTypeSystemDefinition()
-								.add(typeSystemDefinition(d));
-								}
-							});
-
-			}
-		}
+						}
+					});
+					return Scopes.scopeFor(existingDirectives.values());
+				}			}
 		return super.getScope(context, reference);
 	}
 
