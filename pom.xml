@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.intuit.graphql</groupId>
   <artifactId>graphql-xtext</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.16-SNAPSHOT</version>
   <packaging>pom</packaging>
-
+  
+  <name>${project.artifactId}</name>
+  <description>A GraphQL SDL lexer, parser, and validator that generates a traversable Abstract Syntax Tree from your GraphQL schema</description>
+  <url>https://github.com/intuit/graphql-xtext</url>
+  
   <scm>
     <connection>scm:git:https://github.com/intuit/graphql-xtext</connection>
     <url>https://github.com/intuit/graphql-xtext</url>
@@ -29,26 +33,6 @@
     </developer>
   </developers>
 
-  <properties>
-    <xtextVersion>2.19.0</xtextVersion>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- Tycho settings -->
-    <tycho-version>1.4.0</tycho-version>
-    <nexus.staging.plugin.version>1.6.7</nexus.staging.plugin.version>
-
-    <!-- Define overridable properties for tycho-surefire-plugin -->
-    <platformSystemProperties/>
-    <moduleProperties/>
-    <systemProperties/>
-    <additionalTestArguments/>
-  </properties>
-
-  <modules>
-    <module>com.intuit.graphql.parent</module>
-  </modules>
-
   <repositories>
     <repository>
       <id>codehaus-snapshots</id>
@@ -60,40 +44,49 @@
       <url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtextVersion}/</url>
     </repository>
   </repositories>
+  
+  <properties>
+    <xtextVersion>2.25.0</xtextVersion>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- Tycho settings -->
+    <tycho-version>1.4.0</tycho-version>
+    <nexus.staging.plugin.version>1.6.7</nexus.staging.plugin.version>
+
+    <!-- Define overridable properties for tycho-surefire-plugin -->
+    <platformSystemProperties />
+    <moduleProperties />
+    <systemProperties />
+    <additionalTestArguments />
+  </properties>
+
+  <modules>
+    <module>com.intuit.graphql.parent</module>
+  </modules>
+
 
   <profiles>
     <profile>
       <id>release</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>2.2.1</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-<!--          <plugin>-->
-<!--            <groupId>org.apache.maven.plugins</groupId>-->
-<!--            <artifactId>maven-gpg-plugin</artifactId>-->
-<!--            <version>1.5</version>-->
-<!--               <executions>-->
-<!--                <execution>-->
-<!--                <id>sign-artifacts</id>-->
-<!--                <phase>verify</phase>-->
-<!--                <goals>-->
-<!--                  <goal>sign</goal>-->
-<!--                </goals>-->
-<!--              </execution>-->
-<!--            </executions>-->
-<!--          </plugin>-->
-          <plugin>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-gpg-plugin</artifactId>
+           <version>1.5</version>
+              <executions>
+               <execution>
+               <id>sign-artifacts</id>
+               <phase>verify</phase>
+               <goals>
+                 <goal>sign</goal>
+               </goals>
+             </execution>
+           </executions>
+         </plugin> 
+<!--          <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>${nexus.staging.plugin.version}</version>
@@ -103,7 +96,7 @@
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
               <stagingProfileId>38248ee8ccc6bd</stagingProfileId>
             </configuration>
-          </plugin>
+          </plugin> -->
         </plugins>
       </build>
     </profile>
@@ -114,5 +107,9 @@
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+     <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
   </distributionManagement>
 </project>

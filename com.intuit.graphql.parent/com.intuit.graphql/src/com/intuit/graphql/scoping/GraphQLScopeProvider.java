@@ -111,7 +111,7 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 
 				BUILT_IN_DIRECTIVE_DEFINITIONS
 						.forEach(d -> {
-							if(!existingDirectiveNames.contains(d)) {
+							if(!existingDirectiveNames.contains(d.getName())) {
 							   typeSystem.getTypeSystemDefinition()
 								.add(typeSystemDefinition(d));
 								}

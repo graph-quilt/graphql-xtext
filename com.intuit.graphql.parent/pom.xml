@@ -1,24 +1,28 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.intuit.graphql</groupId>
-	<version>1.0.0-SNAPSHOT</version>
 	<artifactId>com.intuit.graphql.parent</artifactId>
 	<packaging>pom</packaging>
 
+  <parent>
+    <groupId>com.intuit.graphql</groupId>
+    <artifactId>graphql-xtext</artifactId>
+    <version>1.0.16-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
 	<properties>
-		<xtextVersion>2.24.0</xtextVersion>
-		<mwe2Version>2.12.0</mwe2Version>
+		<xtextVersion>2.25.0</xtextVersion>
+		<mwe2Version>2.12.1</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Tycho settings -->
 		<tycho-version>1.7.0</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
-		<platformSystemProperties></platformSystemProperties>
-		<moduleProperties></moduleProperties>
-		<systemProperties></systemProperties>
-		<additionalTestArguments></additionalTestArguments>
+		<platformSystemProperties />
+		<moduleProperties />
+		<systemProperties />
+		<additionalTestArguments />
 	</properties>
 	<modules>
 		<module>com.intuit.graphql</module>
@@ -26,8 +30,8 @@
 		<module>com.intuit.graphql.ui</module>
 		<module>com.intuit.graphql.web</module>
 		<module>com.intuit.graphql.target</module>
-		<module>com.intuit.graphql.feature</module>
-		<module>com.intuit.graphql.repository</module>
+<!-- 		<module>com.intuit.graphql.feature</module>
+	<module>com.intuit.graphql.repository</module> -->
 		<module>com.intuit.graphql.tests</module>
 		<module>com.intuit.graphql.ui.tests</module>
 	</modules>
@@ -44,6 +48,14 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
+		    <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <strictVersions>false</strictVersions>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -202,7 +214,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -221,7 +233,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -239,11 +251,11 @@
 											<goal>build-qualifier</goal>
 											<goal>build-qualifier-aggregator</goal>
 											<goal>validate-id</goal>
-											<goal>validate-version</goal>
+ 											<goal>validate-version</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
