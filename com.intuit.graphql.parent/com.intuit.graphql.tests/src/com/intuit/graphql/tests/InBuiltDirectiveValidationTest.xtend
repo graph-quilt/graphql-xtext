@@ -2,7 +2,6 @@ package com.intuit.graphql.tests
 
 import com.google.inject.Inject
 import com.intuit.graphql.graphQL.Document
-import com.intuit.graphql.graphQL.GraphQLPackage
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
@@ -19,7 +18,7 @@ class InBuiltDirectiveValidationTest {
 	
 	@Inject 
 	ValidationTestHelper validationTestHelper
-
+	
 	@Test
 	def void deprecatedDirectiveDefined() throws Exception{
 		
@@ -32,8 +31,8 @@ class InBuiltDirectiveValidationTest {
 			
 		'''
 
-		parseHelper.parse(document)
-	}
+		val result = parseHelper.parse(document)
+		validationTestHelper.validate(result)	}
 	
 	@Test
 	def void deprecatedDirectiveNotDefined() throws Exception{
@@ -44,7 +43,8 @@ class InBuiltDirectiveValidationTest {
 			}
 		'''
 
-		parseHelper.parse(document)
+		val result = parseHelper.parse(document)
+		validationTestHelper.validate(result)
 
 	}
 	
@@ -61,8 +61,7 @@ class InBuiltDirectiveValidationTest {
 			directive @deprecated(reason: String = "No longer supported") on FIELD_DEFINITION | ENUM_VALUE
 		'''
 		
-		val result = parseHelper.parse(document)
-		validationTestHelper.assertError(result,GraphQLPackage.Literals.DIRECTIVE_DEFINITION, null,
-			"Duplicate directives in schema: deprecated")
+		parseHelper.parse(document)
+		
 	}
 }
