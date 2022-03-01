@@ -17,7 +17,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.scoping.impl.SimpleScope;
 
+import com.google.inject.binder.ScopedBindingBuilder;
 import com.intuit.graphql.graphQL.ArgumentsDefinition;
 import com.intuit.graphql.graphQL.Directive;
 import com.intuit.graphql.graphQL.DirectiveDefinition;
@@ -38,7 +40,7 @@ import com.intuit.graphql.graphQL.Value;
  * on how and when to use it.
  */
 public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
-	
+
 	private Map<String, Function<String, DirectiveDefinition>> BUILT_IN_DIRECTIVE_DEFINITIONS = new HashMap() {
 		{
 			put("include", createFilterableDirective);
@@ -113,24 +115,26 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 	@Override
 	public IScope getScope(EObject context, EReference reference) {
 		if (context instanceof Directive && reference == GraphQLPackage.Literals.DIRECTIVE__DEFINITION) {
-				EObject rootContainer = EcoreUtil2.getRootContainer(context);
-				if (rootContainer instanceof TypeSystem) {
-					TypeSystem typeSystem = (TypeSystem) EcoreUtil2.getRootContainer(context);
-					Map<String, DirectiveDefinition> existingDirectives = typeSystem.getTypeSystemDefinition().stream()
-							.filter(t -> Objects.nonNull(t.getDirective())).map(ts -> ts.getDirective())
-							.collect(Collectors.toMap(d -> d.getName(), Function.identity()));
-					
-					BUILT_IN_DIRECTIVE_DEFINITIONS.forEach((key,value)-> {
-						if (!existingDirectives.containsKey(key)) {
-							DirectiveDefinition def = value.apply(key);
-							existingDirectives.put(key, def);
-							context.eResource().getContents().add(def);
-							typeSystem.getTypeSystemDefinition().add(typeSystemDefinition(def));
+			EObject rootContainer = EcoreUtil2.getRootContainer(context);
+			if (rootContainer instanceof TypeSystem) {
+				TypeSystem typeSystem = (TypeSystem) rootContainer;
+				Map<String, DirectiveDefinition> existingDirectives = EcoreUtil2
+						.getAllContentsOfType(rootContainer, DirectiveDefinition.class).stream()
+						.collect(Collectors.toMap(d -> d.getName(), Function.identity()));
 
-						}
-					});
-					return Scopes.scopeFor(existingDirectives.values());
-				}			}
+				BUILT_IN_DIRECTIVE_DEFINITIONS.forEach((key, value) -> {
+					if (!existingDirectives.containsKey(key)) {
+						DirectiveDefinition def = value.apply(key);
+						existingDirectives.put(key, def);
+						context.eResource().getContents().add(def);
+						typeSystem.getTypeSystemDefinition().add(typeSystemDefinition(def));
+
+					}
+				});
+				return new SimpleScope(this.delegateGetScope(context, reference),
+						Scopes.scopedElementsFor(existingDirectives.values()));
+			}
+		}
 		return super.getScope(context, reference);
 	}
 
