@@ -1,4 +1,4 @@
-package com.intuit.graphql.tests
+  package com.intuit.graphql.tests
 
 import com.google.inject.Inject
 import com.intuit.graphql.graphQL.Document

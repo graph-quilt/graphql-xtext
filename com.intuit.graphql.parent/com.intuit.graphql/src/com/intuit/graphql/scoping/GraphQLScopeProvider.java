@@ -42,12 +42,10 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 			put("include", createFilterableDirective);
 			put("skip", createFilterableDirective);
 			put("deprecated", createDeprecatedDirective);
+			put("specifiedBy", createSpecifiedByDirective);
 
 		}
 	};
-
-//	private static List<DirectiveDefinition> BUILT_IN_DIRECTIVE_DEFINITIONS = Arrays.asList(createDeprecatedDirective(),
-//			createFilterableDirective("include"), createFilterableDirective("skip"));
 
 	private static Function<String, DirectiveDefinition> createDeprecatedDirective = directiveName -> {
 
@@ -101,6 +99,32 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 
 		return directive;
 	};
+	
+	/**
+     * The "specifiedBy" directive allows to provide a specification URL for a Scalar
+     */
+	private static Function<String, DirectiveDefinition> createSpecifiedByDirective = directiveName -> {
+
+		PrimitiveType primitive = GraphQLFactory.eINSTANCE.createPrimitiveType();
+		primitive.setType("String");
+		primitive.setNonNull(true);
+
+		InputValueDefinition input = GraphQLFactory.eINSTANCE.createInputValueDefinition();
+		input.setName("url");
+		input.setDesc("The URL that specifies the behaviour of this scalar.");
+		input.setNamedType(primitive);
+
+		ArgumentsDefinition arguments = GraphQLFactory.eINSTANCE.createArgumentsDefinition();
+		arguments.getInputValueDefinition().add(input);
+
+		DirectiveDefinition directive = GraphQLFactory.eINSTANCE.createDirectiveDefinition();
+		directive.setName(directiveName);
+		directive.setDesc("Exposes a URL that specifies the behaviour of this scalar.");
+		directive.setArgumentsDefinition(arguments);
+		directive.getDirectiveLocations().addAll(Arrays.asList(createDirectiveLocation("SCALAR")));
+
+		return directive;
+	};
 
 	private TypeSystemDefinition typeSystemDefinition(DirectiveDefinition directiveDefinition) {
 		TypeSystemDefinition typeSystemDefinition = GraphQLFactory.eINSTANCE.createTypeSystemDefinition();
@@ -116,7 +140,7 @@ public class GraphQLScopeProvider extends AbstractGraphQLScopeProvider {
 				TypeSystem typeSystem = (TypeSystem) rootContainer;
 				Map<String, DirectiveDefinition> existingDirectives = EcoreUtil2
 						.getAllContentsOfType(rootContainer, DirectiveDefinition.class).stream()
-						.collect(Collectors.toMap(d -> d.getName(), Function.identity()));
+						.collect(Collectors.toMap(d -> d.getName(), Function.identity(), (v1, v2 ) -> v1));
 
 				BUILT_IN_DIRECTIVE_DEFINITIONS.forEach((key, value) -> {
 					if (!existingDirectives.containsKey(key)) {

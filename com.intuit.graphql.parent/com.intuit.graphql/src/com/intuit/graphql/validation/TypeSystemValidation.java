@@ -13,7 +13,7 @@ class TypeSystemValidation extends BaseValidation {
 
 	@Check
 	public void checkForDuplicateTypes(TypeSystem typeSystem) {
-		Set<String> names = new HashSet();
+		Set<String> names = new HashSet<>();
 
 		for (TypeSystemDefinition tsd : typeSystem.getTypeSystemDefinition()) {
 			TypeDefinition type = tsd.getType();
