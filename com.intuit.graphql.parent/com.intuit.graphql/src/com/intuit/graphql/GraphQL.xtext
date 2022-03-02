@@ -222,7 +222,7 @@ InputValueDefinition : desc=StringValue? name=Name ':' namedType=NamedType ('=' 
 QDirective:'@' name=Name Arguments?;
 Directive:'@' definition=[DirectiveDefinition] Arguments?;
 
-DirectiveDefinition : desc=StringValue? 'directive' '@' name=Name argumentsDefinition=ArgumentsDefinition? 'on' directiveLocations+=DirectiveLocation ('|' directiveLocations+=DirectiveLocation)*;
+DirectiveDefinition : desc=StringValue? 'directive' '@' name=Name argumentsDefinition=ArgumentsDefinition? (repeatable?='repeatable')? 'on' directiveLocations+=DirectiveLocation ('|' directiveLocations+=DirectiveLocation)*;
 
 DirectiveLocation : namedDirective=Name;
 

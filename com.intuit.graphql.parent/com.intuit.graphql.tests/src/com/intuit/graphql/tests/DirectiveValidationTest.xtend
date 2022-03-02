@@ -12,10 +12,12 @@ import com.intuit.graphql.graphQL.TypeSystem
 import org.junit.jupiter.api.^extension.ExtendWith
 import com.intuit.graphql.graphQL.GraphQLPackage
 import com.intuit.graphql.graphQL.ScalarTypeDefinition
+import com.intuit.graphql.graphQL.ObjectTypeDefinition
+import com.intuit.graphql.graphQL.ObjectTypeExtensionDefinition
 
 @InjectWith(GraphQLInjectorProvider)
 @ExtendWith(InjectionExtension)
-class InBuiltDirectiveValidationTest {
+class DirectiveValidationTest {
 
 	@Inject
 	ParseHelper<Document> parseHelper
@@ -91,6 +93,7 @@ class InBuiltDirectiveValidationTest {
 		    .size
 		 	
 		Assertions.assertEquals(4 , count)	
+		
 	}
 	
 	@Test
@@ -120,5 +123,46 @@ class InBuiltDirectiveValidationTest {
 		
 		val specifiedBy = directives.get('specifiedBy')	
 		Assertions.assertEquals('myUrl.example', specifiedBy.arguments.get(0).valueWithVariable.stringValue)
+		Assertions.assertFalse(specifiedBy.definition.isRepeatable)
 	}
+	
+	@Test
+	def void testRepeatableDirective() {
+		
+		val document = '''
+			directive @delegateField(name: String!) repeatable on OBJECT | INTERFACE
+			type Book @delegateField(name: "pageCount") @delegateField(name: "author") {
+			  id: ID!
+			}
+			extend type Book @delegateField(name: "index")	
+		'''
+		
+		val parsed = parseHelper.parse(document)
+		val errors = validationTestHelper.validate(parsed)
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		
+		val directives = (parsed as TypeSystem).typeSystemDefinition
+		 	.map[ type | type.type]
+		 	.filterNull
+		 	.filter(ObjectTypeDefinition)
+		 	.filter[s | s.name == 'Book']
+		 	.flatMap[s | s.directives]
+		 	.toList
+		    		 	
+		Assertions.assertEquals(2 , directives.size)
+		directives.forEach[ d | Assertions.assertTrue(d.definition.isRepeatable)]
+		
+		
+			val extDirectives = (parsed as TypeSystem).typeSystemDefinition
+		 	.map[ type | type.typeExtension]
+		 	.filterNull
+		 	.filter(ObjectTypeExtensionDefinition)
+		 	.filter[s | s.name == 'Book']
+		 	.flatMap[s | s.directives]
+		 	.toList
+		    		 	
+		Assertions.assertEquals(1 , extDirectives.size)
+		extDirectives.forEach[ d | Assertions.assertTrue(d.definition.isRepeatable)]
+	}	
+	
 }
