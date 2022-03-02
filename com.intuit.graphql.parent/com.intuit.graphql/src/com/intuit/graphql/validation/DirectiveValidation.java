@@ -12,7 +12,7 @@ class DirectiveValidation extends BaseValidation {
 
 	@Check
 	public void checkDuplicateDirectiveDefinitions(TypeSystem typeSystem) {
-		Set<String> directiveDefinitions  = new HashSet();
+		Set<String> directiveDefinitions  = new HashSet<>();
 				
 		typeSystem.getTypeSystemDefinition().stream().map(t->t.getDirective()).filter(Objects::nonNull).forEach(directiveDef->{
 			if (!directiveDefinitions.add(directiveDef.getName())) {
@@ -21,4 +21,5 @@ class DirectiveValidation extends BaseValidation {
 		});
 				
 	}
+	
 }
