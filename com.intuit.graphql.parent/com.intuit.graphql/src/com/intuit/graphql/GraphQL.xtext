@@ -178,10 +178,11 @@ ScalarTypeExtensionDefinition : 'extend' 'scalar' name=Name directives+=Directiv
 //Object
 ObjectTypeDefinition : desc=StringValue? 'type' name=Name implementsInterfaces=ImplementsInterfaces? directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
 ObjectTypeExtensionDefinition:'extend' 'type' name=Name implementsInterfaces=ImplementsInterfaces? directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')? ;
-//Interface
-InterfaceTypeDefinition : desc=StringValue? 'interface' name=Name directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
 
-InterfaceTypeExtensionDefinition: 'extend' 'interface' name=Name directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
+//Interface
+InterfaceTypeDefinition : desc=StringValue? 'interface' name=Name implementsInterfaces=ImplementsInterfaces? directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
+
+InterfaceTypeExtensionDefinition: 'extend' 'interface' name=Name implementsInterfaces=ImplementsInterfaces? directives+=Directive* ('{' fieldDefinition+=FieldDefinition* '}')?;
 
 // unions
 UnionTypeDefinition : desc=StringValue? 'union' name=Name directives+=Directive* unionMemberShip=UnionMemberShip?;
@@ -206,7 +207,7 @@ InputObjectTypeDefinition : desc=StringValue? 'input' name=Name directives+=Dire
 InputObjectTypeExtensionDefinition: 'extend' 'input' name=Name directives+=Directive* ('{' inputValueDefinition+=InputValueDefinition* '}')?;
 
 
-ImplementsInterfaces : 'implements' namedType+=NamedType ('&' namedType+=NamedType)*;
+ImplementsInterfaces : 'implements' '&'? namedType+=NamedType ('&' namedType+=NamedType)*;
 
 FieldDefinition : desc=StringValue? name=Name argumentsDefinition=ArgumentsDefinition? ':' namedType=NamedType directives+=Directive* (',')?;
 
