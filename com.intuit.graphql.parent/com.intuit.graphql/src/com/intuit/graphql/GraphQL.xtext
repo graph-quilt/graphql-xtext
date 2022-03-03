@@ -20,7 +20,7 @@ enum OperationType: QUERY='query' | MUTATION='mutation' | SUBSCRIPTION='subscrip
 
 VariableDefinitions : '(' variableDefinition+=VariableDefinition+ ')';
 
-VariableDefinition : desc=StringValue? variable=Variable ':' type=QType ('=' defaultValue=Value)? (',')?;
+VariableDefinition :  variable=Variable ':' type=QType ('=' defaultValue=Value)? directives+=QDirective* (',')?;
 
 Variable : '$' name=Name;
 //
