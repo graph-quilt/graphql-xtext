@@ -1,6 +1,6 @@
 # GraphQL-Xtext
 
-[![CircleCI](https://circleci.com/gh/intuit/graphql-xtext/tree/master.svg?style=svg&circle-token=e643c37c269d36978ff4455c6fe86b32e145ed68)](https://circleci.com/gh/intuit/graphql-xtext/tree/master)
+[![CircleCI](https://circleci.com/gh/graph-quilt/graphql-xtext/tree/master.svg?style=svg&circle-token=e643c37c269d36978ff4455c6fe86b32e145ed68)](https://circleci.com/gh/graph-quilt/graphql-xtext/tree/master)
 
 A GraphQL SDL lexer, parser, and validator that generates a traversable Abstract Syntax Tree from your GraphQL schema. GraphQL-Xtext will generate pure Java Objects that can be used at runtime.
 
@@ -24,7 +24,7 @@ This project uses `java 8` and `maven 3.3+`.
    
 ## Setting up the Project 
 
-1. Clone [graphql-xtext](https://github.intuit.com/data-orchestration/graphql-xtext)
+1. Clone [graphql-xtext](https://github.com/graph-quilt/graphql-xtext)
 2. Import the cloned project in Eclipse, click `File --> Import Project --> Maven --> Existing Maven Project`
 3. Under the directory `com.intuit.graphql`,
 right click on `GenerateGraphQL.mwe2 --> Run As --> 1 MWE2 Workflow`
