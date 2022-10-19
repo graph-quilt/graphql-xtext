@@ -22,9 +22,19 @@ jobs:
       - store_test_results:
           path: com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports
 
+  release:
+    steps:
+      - attach_workspace:
+          at: ~/auto
+      - run:
+          name: Release
+          command: npx auto shipit
+
 workflows:
   version: 2
   ci_builds:
     jobs:
       - build
-
+  release:
+    requires:
+      - install
