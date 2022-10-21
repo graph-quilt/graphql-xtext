@@ -30,8 +30,7 @@ jobs:
         with:
           name: test-results
           path: |
-            com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports/*.xml
-            com.intuit.graphql.parent/com.intuit.graphql.ui.tests/target/surefire-reports/*.xml
+            com/intuit/graphql/parent/com/intuit/graphql/tests/target/surefire-reports/*.xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
