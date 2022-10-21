@@ -24,19 +24,3 @@ jobs:
       # ignoring target, tests, ui project POMs (very few changes, if any)
       - name: Build with Maven
         run: mvn -B verify -f pom.xml
-      - name: Upload test results     
-        uses: actions/upload-artifact@v3  # upload test results
-        if: success() || failure()        # run this step even if previous step failed
-        with:
-          name: test-results
-          path: |
-            com.intuit.graphql.parent/com.intuit.graphql.tests/target/surefire-reports/*.xml
-            com.intuit.graphql.parent/com.intuit.graphql.ui.tests/target/surefire-reports/*.xml
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: jacoco-reports/target/site/jacoco-aggregate
-          fail_ci_if_error: true
-          name: codecov-adapters
-          verbose: true
