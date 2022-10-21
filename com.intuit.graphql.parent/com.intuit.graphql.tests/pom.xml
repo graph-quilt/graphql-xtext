@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.intuit.graphql</groupId>
 		<artifactId>com.intuit.graphql.parent</artifactId>
-		<version>3.0.2-SNAPSHOT</version>
+		<version>3.0.2</version>
 	</parent>
 	<artifactId>com.intuit.graphql.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
