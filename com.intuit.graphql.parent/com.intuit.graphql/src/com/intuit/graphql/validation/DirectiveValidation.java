@@ -11,7 +11,7 @@ import org.eclipse.xtext.validation.Check;
 import com.intuit.graphql.graphQL.Directive;
 import com.intuit.graphql.graphQL.DirectiveDefinition;
 import com.intuit.graphql.graphQL.InputValueDefinition;
-import com.intuit.graphql.graphQL.TypeSystem
+import com.intuit.graphql.graphQL.TypeSystem;
 
 class DirectiveValidation extends BaseValidation {
 
