@@ -75,6 +75,20 @@ class DirectiveValidationTest {
 	}
 	
 	@Test
+	def void  testUnknownArgumentsNotAllowedInDirective() {
+		val document = '''
+			type  Foo1 {
+				foo1: String @customDir(IncorrectReason : "reason `in markdown syntax`")
+			}
+						
+			directive @customDir(reason: String = "No longer supported") on FIELD_DEFINITION | ENUM_VALUE
+		'''
+		val parsed = parseHelper.parse(document)
+		validationTestHelper.assertError(parsed, GraphQLPackage.Literals.DIRECTIVE, null,
+			"Unknown Argument: IncorrectReason inside directive: customDir")
+	}
+	
+	@Test
 	def void testNumberOfInBuiltDirectives() {
 		
 		val document = '''
