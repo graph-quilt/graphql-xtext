@@ -38,7 +38,7 @@ class DirectiveValidation extends BaseValidation {
 
 		directive.getArguments().stream().forEach(argument -> {
 			if (!argumentsInputValuesDefinitonMap.containsKey(argument.getName())) {
-				error("Unknown Argument: "+argument.getName()+"inside directive : "+directiveDefinition.getName(), directive);
+				error("Unknown Argument: "+argument.getName()+" inside directive: "+directiveDefinition.getName(), directive);
 			}
 		});
 	}
