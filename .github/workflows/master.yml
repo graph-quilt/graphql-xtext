@@ -14,6 +14,7 @@ jobs:
       contents: read
       packages: write
 
+    
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
@@ -24,6 +25,10 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+
+      - uses: auto-it/setup-auto@v1
+      - name: Release
+        run: auto shipit
                   
       - name: Publish Snapshot to OSS Maven Repository
         if: ${{ github.ref == 'refs/heads/master' }}
