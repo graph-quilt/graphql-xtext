@@ -1,12 +1,17 @@
 package com.intuit.graphql.validation;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.xtext.validation.Check;
 
-import com.intuit.graphql.graphQL.TypeSystem;
+import com.agile.demo.demoDsl.Directive;
+import com.agile.demo.demoDsl.DirectiveDefinition;
+import com.agile.demo.demoDsl.InputValueDefinition;
+import com.agile.demo.demoDsl.TypeSystem;
 
 class DirectiveValidation extends BaseValidation {
 
@@ -22,4 +27,19 @@ class DirectiveValidation extends BaseValidation {
 				
 	}
 	
+	@Check
+	public void validateDirectiveArguments(Directive directive) {
+		DirectiveDefinition directiveDefinition = directive.getDefinition();
+		Map<String, InputValueDefinition> argumentsInputValuesDefinitonMap = new HashMap<>();
+		directiveDefinition.getArgumentsDefinition().getInputValueDefinition().stream().filter(Objects::nonNull)
+				.forEach(inputValueDefinition -> {
+					argumentsInputValuesDefinitonMap.put(inputValueDefinition.getName(), inputValueDefinition);
+				});
+
+		directive.getArguments().stream().forEach(argument -> {
+			if (!argumentsInputValuesDefinitonMap.containsKey(argument.getName())) {
+				error("Unknown Argument: "+argument.getName()+"inside directive : "+directiveDefinition.getName(), directive);
+			}
+		});
+	}
 }
