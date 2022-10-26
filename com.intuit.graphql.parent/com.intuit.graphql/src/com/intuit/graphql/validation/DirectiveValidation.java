@@ -8,10 +8,10 @@ import java.util.Set;
 
 import org.eclipse.xtext.validation.Check;
 
-import com.agile.demo.demoDsl.Directive;
-import com.agile.demo.demoDsl.DirectiveDefinition;
-import com.agile.demo.demoDsl.InputValueDefinition;
-import com.agile.demo.demoDsl.TypeSystem;
+import com.intuit.graphql.graphQL.Directive;
+import com.intuit.graphql.graphQL.DirectiveDefinition;
+import com.intuit.graphql.graphQL.InputValueDefinition;
+import com.intuit.graphql.graphQL.TypeSystem
 
 class DirectiveValidation extends BaseValidation {
 
