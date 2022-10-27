@@ -50,5 +50,6 @@ Graphql-Xtext builds a Language Server executable under `com.intuit.graphql.pare
 
 [Apache 2.0](./LICENSE)
 
+
 ## Contributing
 Read the [Contribution guide](./.github/CONTRIBUTING.md)
