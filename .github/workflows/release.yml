@@ -16,10 +16,6 @@ jobs:
         with:
           token: ${{ secrets.REPO_GIT_TOKEN }}
           
-      - uses: auto-it/setup-auto@v1
-
-      - name: Release
-
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v1
         with:
