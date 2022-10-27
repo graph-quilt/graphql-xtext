@@ -29,10 +29,6 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
-      - uses: auto-it/setup-auto@v1
-      - name: Release
-        run: auto shipit
-                  
       - name: Publish Snapshot to OSS Maven Repository
         if: ${{ github.ref == 'refs/heads/master' }}
         run: mvn -B --batch-mode deploy --file pom.xml
