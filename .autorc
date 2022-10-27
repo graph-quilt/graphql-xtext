@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "maven"
+  ],
+  "repo": "https://github.com/graph-quilt/graphql-xtext",
+  "email": "graphquilt@gmail.com",
+  "onlyPublishWithReleaseLabel": true
+}
