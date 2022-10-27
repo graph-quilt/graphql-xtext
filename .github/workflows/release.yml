@@ -19,7 +19,6 @@ jobs:
       - uses: auto-it/setup-auto@v1
 
       - name: Release
-        run: auto shipit
 
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v1
