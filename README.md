@@ -24,7 +24,6 @@ This project uses `java 8` and `maven 3.3+`.
    
 ## Setting up the Project
 
-
 1. Clone [graphql-xtext](https://github.com/graph-quilt/graphql-xtext)
 2. Import the cloned project in Eclipse, click `File --> Import Project --> Maven --> Existing Maven Project`
 3. Under the directory `com.intuit.graphql`,
