@@ -22,7 +22,7 @@ This project uses `java 8` and `maven 3.3+`.
    c. Select and install Xtext Complete SDK (2.19.0)  
 3. Restart Eclipse.    
    
-## Setting up the Project 
+## Setting up the Project
 
 1. Clone [graphql-xtext](https://github.com/graph-quilt/graphql-xtext)
 2. Import the cloned project in Eclipse, click `File --> Import Project --> Maven --> Existing Maven Project`
