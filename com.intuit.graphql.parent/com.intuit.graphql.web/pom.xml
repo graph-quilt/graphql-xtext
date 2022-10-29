@@ -54,7 +54,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>src-gen</source>
+								<Source>src-gen</Source>
 							</sources>
 							<resources>
 								<resource>
