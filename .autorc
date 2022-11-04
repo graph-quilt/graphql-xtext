@@ -4,7 +4,7 @@
       "maven",
       {
         "mavenCommand": "mvn",
-        "mavenOptions": ["-DinteractiveMode=false", "-DskipTests"],
+        "mavenOptions": ["-DinteractiveMode=false", "-DskipTests", "-P release"],
         "mavenReleaseGoals": ["deploy"]
       }
     ] 
