@@ -3,8 +3,9 @@
     [
       "maven",
       {
-        "mavenOptions": ["-DskipTests"],
-        "mavenReleaseGoals": ["release:prepare", "release:perform"],
+        "mavenCommand": "mvn",
+        "mavenOptions": ["-DinteractiveMode=false", "-DskipTests"],
+        "mavenReleaseGoals": ["deploy"]
       }
     ] 
   ],
