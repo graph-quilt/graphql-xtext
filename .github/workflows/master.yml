@@ -17,6 +17,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
@@ -26,10 +29,6 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
-      - uses: auto-it/setup-auto@v1
-      - name: Release
-        run: auto shipit
-                  
       - name: Publish Snapshot to OSS Maven Repository
         if: ${{ github.ref == 'refs/heads/master' }}
         run: mvn -B --batch-mode deploy --file pom.xml

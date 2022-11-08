@@ -1,8 +1,15 @@
 {
   "plugins": [
-    "maven"
+    [
+      "maven",
+      {
+        "mavenCommand": "mvn",
+        "mavenOptions": ["-DinteractiveMode=false", "-DskipTests", "-P release"],
+        "mavenReleaseGoals": ["deploy"]
+      }
+    ] 
   ],
   "repo": "https://github.com/graph-quilt/graphql-xtext",
   "email": "graphquilt@gmail.com",
-  "onlyPublishWithReleaseLabel": true
+  "onlyPublishWithReleaseLabel": false
 }
