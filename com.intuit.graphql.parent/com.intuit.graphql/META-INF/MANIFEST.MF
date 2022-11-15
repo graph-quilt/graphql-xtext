@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: com.intuit.graphql
 Bundle-ManifestVersion: 2
 Bundle-Name: com.intuit.graphql
-Bundle-Vendor: Intuit
+Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: com.intuit.graphql; singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.util,
  org.eclipse.emf.common,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.intuit.graphql.services,
  com.intuit.graphql.graphQL.impl,
  com.intuit.graphql.scoping,

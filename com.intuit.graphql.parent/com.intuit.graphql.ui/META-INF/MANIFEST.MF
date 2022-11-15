@@ -17,7 +17,7 @@ Require-Bundle: com.intuit.graphql,
  org.eclipse.compare,
  org.eclipse.xtext.builder
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.intuit.graphql.ui.quickfix,
  com.intuit.graphql.ui.internal,
  com.intuit.graphql.ui.contentassist
