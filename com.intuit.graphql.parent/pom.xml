@@ -2,19 +2,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.intuit.graphql</groupId>
-	<version>3.1.1-SNAPSHOT</version>
-
+	<version>3.2.0-SNAPSHOT</version>
 	<artifactId>com.intuit.graphql.parent</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
-		<xtextVersion>2.28.0</xtextVersion>
-		<mwe2Version>2.13.0</mwe2Version>
+		<xtextVersion>2.30.0</xtextVersion>
+		<mwe2Version>2.14.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<!-- Tycho settings -->
-		<tycho-version>2.7.4</tycho-version>
+		<tycho-version>2.7.5</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
@@ -45,14 +44,6 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
-		    <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-packaging-plugin</artifactId>
-                <version>${tycho-version}</version>
-                <configuration>
-                    <strictVersions>false</strictVersions>
-                </configuration>
-            </plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -126,7 +117,7 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.xtext.logging</id>
-								<versionRange>1.2.19</versionRange>
+								<versionRange>1.2.24</versionRange>
 							</requirement>
 							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the target
 								platform is Luna or later. (backward compatible with kepler and previous
@@ -136,19 +127,6 @@
 								<id>org.eclipse.rcp</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
-							<!-- to force the same version of jdt.compiler.apt and jdt.core
-								(for xtext-maven-plugin)
-								see https://github.com/eclipse/xtext-maven/issues/146 -->
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.eclipse.jdt.compiler.apt</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.eclipse.jdt.compiler.tool</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
 						</extraRequirements>
 					</dependency-resolution>
 				</configuration>
@@ -156,6 +134,14 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <strictVersions>false</strictVersions>
+                </configuration>
+            	</plugin>
 				<plugin>
 					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>

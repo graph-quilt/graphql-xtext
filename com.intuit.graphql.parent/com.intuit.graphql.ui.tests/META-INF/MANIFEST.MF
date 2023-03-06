@@ -8,10 +8,10 @@ Bundle-SymbolicName: com.intuit.graphql.ui.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.intuit.graphql.ui,
  org.eclipse.xtext.testing,
- org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.junit,
- org.eclipse.core.runtime,
  org.eclipse.xtext.ui.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.xbase.ui.testing,
+ org.eclipse.core.runtime,
  org.eclipse.ui.workbench;resolution:=optional
 Import-Package: org.junit.jupiter.api;version="[5.1.0,6.0.0)",
  org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)"
