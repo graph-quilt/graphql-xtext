@@ -3,9 +3,17 @@
  */
 package com.intuit.graphql;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
+
+import com.intuit.graphql.converter.GraphQLValueConverter;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class GraphQLRuntimeModule extends AbstractGraphQLRuntimeModule {
+	
+	@Override
+	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
+		return (Class<? extends IValueConverterService>) GraphQLValueConverter.class;
+	}
 }
