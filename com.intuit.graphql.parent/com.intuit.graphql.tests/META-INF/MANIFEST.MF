@@ -2,14 +2,15 @@ Manifest-Version: 1.0
 Automatic-Module-Name: com.intuit.graphql.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: com.intuit.graphql.tests
-Bundle-Vendor: Intuit
+Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: com.intuit.graphql.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.intuit.graphql,
- org.junit.jupiter.api;bundle-version="[5.1.0,6.0.0)",
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.junit.jupiter.api;version="[5.1.0,6.0.0)",
+ org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.intuit.graphql.tests;x-internal=true

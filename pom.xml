@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.intuit.graphql</groupId>
   <artifactId>graphql-xtext</artifactId>
-  <version>3.1.1-SNAPSHOT</version>
+  <version>3.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <name>${project.artifactId}</name>
@@ -46,14 +46,14 @@
   </repositories>
   
   <properties>
-    <xtextVersion>2.25.0</xtextVersion>
+    <xtextVersion>2.30.0</xtextVersion>
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <!-- Tycho settings -->
-    <tycho-version>1.4.0</tycho-version>
+    <tycho-version>2.7.4</tycho-version>
     <nexus.staging.plugin.version>1.6.7</nexus.staging.plugin.version>
 
     <!-- Define overridable properties for tycho-surefire-plugin -->

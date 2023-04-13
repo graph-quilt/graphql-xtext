@@ -15,6 +15,7 @@ import org.junit.jupiter.api.^extension.ExtendWith
 @ExtendWith(InjectionExtension)
 @InjectWith(GraphQLInjectorProvider)
 class GraphQLParsingTest {
+
 	@Inject extension ParseHelper<Document>
 	@Inject extension ValidationTestHelper
 
