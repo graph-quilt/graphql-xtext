@@ -1,3 +1,19 @@
+# v3.1.1 (Thu Jun 15 2023)
+
+#### 🐛 Bug Fix
+
+- adding back auto configuration [#49](https://github.com/graph-quilt/graphql-xtext/pull/49) ([@CNAChino](https://github.com/CNAChino))
+- removing auto from  release.yml [#48](https://github.com/graph-quilt/graphql-xtext/pull/48) (carlo_aureus@intuit.com [@CNAChino](https://github.com/CNAChino))
+- Xtext 2.30 [#47](https://github.com/graph-quilt/graphql-xtext/pull/47) ([@ashpak-shaikh](https://github.com/ashpak-shaikh))
+
+#### Authors: 3
+
+- Ashpak Shaikh ([@ashpak-shaikh](https://github.com/ashpak-shaikh))
+- Carlo Feliciano Aureus (carlo_aureus@intuit.com)
+- Chino Aureus ([@CNAChino](https://github.com/CNAChino))
+
+---
+
 # v3.1.0 (Fri Nov 04 2022)
 
 #### 🚀 Enhancement
