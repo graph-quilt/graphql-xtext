@@ -11,7 +11,7 @@ import org.eclipse.xtext.validation.ComposedChecks;
  * See
  * https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-@ComposedChecks(validators = { DirectiveValidation.class, TypeSystemValidation.class, UnionTypeValidation.class })
+@ComposedChecks(validators = { DirectiveValidation.class, TypeSystemValidation.class, UnionTypeValidation.class, InputValueValidation.class })
 public class GraphQLValidator extends AbstractGraphQLValidator {
 
 //	public static final String INVALID_NAME = "invalidName";
